@@ -99,7 +99,7 @@ public class PriorityClaims extends DOMFragmentReader<List<DocumentId>> {
         		String docNumber = docNumN.getText();
         		
 				if (docNumber.length() < 2) {
-					LOGGER.warn("docNumber length < 2, can't deduplicate country: " + docNumber)
+					LOGGER.warn("docNumber length < 2, can't deduplicate country: " + docNumber);
 				} else {
 					if (docNumber.substring(0,2).toLowerCase().equals(countryCode.toString().toLowerCase())) {
 						docNumber = docNumber.substring(2).trim();
