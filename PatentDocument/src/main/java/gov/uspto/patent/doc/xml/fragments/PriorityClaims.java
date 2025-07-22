@@ -98,10 +98,14 @@ public class PriorityClaims extends DOMFragmentReader<List<DocumentId>> {
 
         		String docNumber = docNumN.getText();
         		
-        		if (docNumber.substring(0,2).toLowerCase().equals(countryCode.toString().toLowerCase())) {
-        			docNumber = docNumber.substring(2).trim();
-        			LOGGER.debug("Removed duplicate CountryCode '{}' doc-number: {} => {}", countryCode.toString(), docNumN.getText(), docNumber);
-        		}
+				if (docNumber.length() < 2) {
+					LOGGER.warn("docNumber length < 2, can't deduplicate country: " + docNumber)
+				} else {
+					if (docNumber.substring(0,2).toLowerCase().equals(countryCode.toString().toLowerCase())) {
+						docNumber = docNumber.substring(2).trim();
+						LOGGER.debug("Removed duplicate CountryCode '{}' doc-number: {} => {}", countryCode.toString(), docNumN.getText(), docNumber);
+					}
+				}
 
         		// Seems application number format changed in 2004 from short year to long year.
         		Matcher matcher = SHORT_YEAR.matcher(docNumber);
